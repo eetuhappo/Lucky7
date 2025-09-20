@@ -1,23 +1,27 @@
 import java.util.Random;
+import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws Exception {
         // Lucky7 harjoitus
         
         Random random = new Random();
-
+        Scanner in = new Scanner(System.in);
         // Muuttujat
         
         int randomNumber1;
         int randomNumber2;
         int randomNumber3;
-        int money = 5;
-        
-        // Pelin alussa on 5 euroa rahaa. Yksi kierros maksaa 1 euron.
+        int money;
+        String playAgain;
+
+        // Pelin alussa pelaaja syöttää haluamansa rahamäärän. Yksi kierros maksaa 1 euron.
         // arvotaan kolme numeroa väliltä 1-10
         // jos jokin numero on 7 voittaa 2 euroa, 2x7 voittaa 5 euroa ja 3x7 voittaa 10 euroa.
         // Peli loppuu kun pelaajalla ei ole rahaa.
 
-        System.out.println("Pelataan lucky 7 peliä. Yksi kierros maksaa 1 euron. Sinulla on rahaa " + money + " euroa");
+        System.out.println("Pelataan lucky 7 peliä. Yksi kierros maksaa 1 euron. Syötä haluamasi rahamäärä");
+        money = Integer.parseInt(in.nextLine());
+        System.out.println("Sinulla on rahaa " + money + " euroa");
         do {
             randomNumber1 = random.nextInt(10)+1;
             randomNumber2 = random.nextInt(10)+1;
@@ -41,8 +45,16 @@ public class App {
             else {
                 System.out.println("Hävisit! Sinulla on rahaa jäljellä " + money + " euroa.");
             }
+            if (money == 0) {
+            System.out.println("Peli päättyi.");
+            break;
+            }
+            System.out.println("Pelataanko uudestaan (K/E)?");
+            playAgain = in.nextLine();
+            
         }
-        while (money > 0);
-        System.out.println("Rahat loppu. Peli päättyi.");
+        while (playAgain.equalsIgnoreCase("K") && money > 0);
+               
+        
     }
 }
